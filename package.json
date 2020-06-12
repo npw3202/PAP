@@ -1,0 +1,22 @@
+{
+  "name": "pap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npw3202/PAP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/npw3202/PAP/issues"
+  },
+  "homepage": "https://github.com/npw3202/PAP#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
