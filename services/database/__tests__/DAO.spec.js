@@ -25,16 +25,16 @@ test('Primary code path', async () => {
         "key3": "value3"
     }]);
 
-    await db.insertOrUpdate(EXAMPLE_TABLE, {
+    await db.insert(EXAMPLE_TABLE, {
         "key1": "value1",
         "key2": "value3",
         "key3": "value4"
     })
-    let searchFromInsertOrUpdate = await db.search(EXAMPLE_TABLE, {
+    let searchFromSecondInsert = await db.search(EXAMPLE_TABLE, {
         "key1": "value1",
         "key2": "value3"
     });
-    expect(searchFromInsertOrUpdate).toStrictEqual([{
+    expect(searchFromSecondInsert).toStrictEqual([{
         "key1": "value1",
         "key2": "value3",
         "key3": "value4"
@@ -60,12 +60,35 @@ test('Primary code path', async () => {
         "key2": "value2"
     });
     let scanFromDelete = await db.scan(EXAMPLE_TABLE);
-    console.log(scanFromDelete)
     expect(scanFromDelete).toStrictEqual([{
         "key1": "value1",
         "key2": "value3",
         "key3": "value4"
     }]);
+});
 
 
+test('Primary code path for Postgres', async () => {
+    let db = new DAO.PGDAO(true);
+    await db.startPGConnection();
+    await db.insert(EXAMPLE_TABLE, {
+        "key1": "value1",
+        "key2": "value2",
+        "key3": "value3"
+    })
+    await db.update(EXAMPLE_TABLE, {
+        "key1": "value1",
+        "key2": "value2",
+        "key4": 2
+    })
+    let scanResult = await db.scan(EXAMPLE_TABLE);
+    let searchResult = await db.search(EXAMPLE_TABLE, {
+        "key1": "value1",
+        "key2": "value2"
+    });
+    await db.del(EXAMPLE_TABLE, {
+        "key1": "value1",
+        "key2": "value2"
+    });
+    await db.endPGConnection();
 });
