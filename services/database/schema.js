@@ -2,7 +2,11 @@
  * Defines the basic schema defined within our sql file. This is used for sanity checking all edits
  */
 class TABLE_SCHEMA {
-	static TABLE_NAME = "";
+	/**
+     * Defines the basic schema for a table
+     * This is used primarily for verification of requests
+     */
+    static TABLE_NAME = "";
 	static KEY_COLUMNS = [];
 	static NON_NULLABLE_COLUMNS = [];
 	static COLUMNS = [];
@@ -154,3 +158,13 @@ class ORGANIZATIONS_TO_CASES_SCHEMA extends TABLE_SCHEMA {
 		"CaseID"
 	];
 }
+
+exports.ORGANIZATIONS_SCHEMA = ORGANIZATIONS_SCHEMA
+exports.ORGANIZATIONS_TO_CASES_SCHEMA = ORGANIZATIONS_TO_CASES_SCHEMA
+exports.INCIDENT_SCHEMA = INCIDENT_SCHEMA
+exports.INCIDENTS_TO_OFFICERS_SCHEMA = INCIDENT_SCHEMA
+exports.CASES_SCHEMA = CASES_SCHEMA
+exports.CASES_TO_INCIDENTS_SCHEMA = CASES_TO_INCIDENTS_SCHEMA
+exports.OFFICER_SCHEMA = OFFICER_SCHEMA
+exports.USER_SCHEMA = USER_SCHEMA
+exports.TABLE_SCHEMA = TABLE_SCHEMA
