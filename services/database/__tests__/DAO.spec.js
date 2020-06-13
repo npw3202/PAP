@@ -70,7 +70,6 @@ test('Primary code path', async () => {
 
 test('Primary code path for Postgres', async () => {
     let db = new DAO.PGDAO(true);
-    await db.startPGConnection();
     await db.insert(EXAMPLE_TABLE, {
         "key1": "value1",
         "key2": "value2",
@@ -81,8 +80,8 @@ test('Primary code path for Postgres', async () => {
         "key2": "value2",
         "key4": 2
     })
-    let scanResult = await db.scan(EXAMPLE_TABLE);
-    let searchResult = await db.search(EXAMPLE_TABLE, {
+    await db.scan(EXAMPLE_TABLE);
+    await db.search(EXAMPLE_TABLE, {
         "key1": "value1",
         "key2": "value2"
     });
@@ -90,5 +89,23 @@ test('Primary code path for Postgres', async () => {
         "key1": "value1",
         "key2": "value2"
     });
-    await db.endPGConnection();
+    expect(db.requestHistory).toStrictEqual([
+        [
+          'INSERT INTO EXAMPLE(key1, key2, key3) VALUES ($1, $2, $3);',
+          [ 'value1', 'value2', 'value3' ]
+        ],
+        [
+          'UPDATE EXAMPLE SET key1 = $1, key2 = $2, key4 = $3;',
+          [ 'value1', 'value2', 2 ]
+        ],
+        [ 'SELECT * FROM EXAMPLE;' ],
+        [
+          'SELECT * FROM EXAMPLE WHERE key1 = $1 AND key2 = $2;',
+          [ 'value1', 'value2' ]
+        ],
+        [
+          'DELETE FROM EXAMPLE WHERE key1 = $1 AND key2 = $2;',
+          [ 'value1', 'value2' ]
+        ]
+    ]);
 });
