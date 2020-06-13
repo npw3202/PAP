@@ -65,7 +65,7 @@ class AbstractDAO {
     // the methods below here are common utility functions
     keyColumnsAreContained(tableSchema, row) {
         for (let keyColumn of tableSchema.KEY_COLUMNS) {
-            if (!row.hasOwnProperty(keyColumn)) {
+            if (row[keyColumn] != undefined) {
                 return false;
             }
         }
@@ -83,7 +83,7 @@ class AbstractDAO {
 
     nonNullColumnsAreContained(tableSchema, row) {
         for (let keyColumn of tableSchema.NON_NULLABLE_COLUMNS) {
-            if (!row.hasOwnProperty(keyColumn)) {
+            if (row[keyColumn] != undefined) {
                 return false;
             }
         }
@@ -327,7 +327,7 @@ class InMemDAO extends AbstractDAO {
         for (let row of table.values()) {
             let matched = true;
             for (let col in rowSubset) {
-                if (!row.hasOwnProperty(col) || row[col] != rowSubset[col]) {
+                if (row[col] != undefined || row[col] != rowSubset[col]) {
                     matched = false;
                 }
             }
