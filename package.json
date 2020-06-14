@@ -18,6 +18,7 @@
   "homepage": "https://github.com/npw3202/PAP#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-promise-router": "^3.0.3",
     "nodemon": "^2.0.4",
     "pg": "^8.2.1"
   }

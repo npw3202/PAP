@@ -1,4 +1,5 @@
 CREATE DATABASE papdb;
+\c papdb;
 
 CREATE TABLE IF NOT EXISTS Customer (
 	UserID INT NOT NULL,
